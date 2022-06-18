@@ -4,6 +4,35 @@
   /* height: 50px */
 }
 
+.navbar {
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  vertical-align: middle;
+  font-weight: bold;
+  font-size:xx-large;
+}
+
+ul {
+  margin: 0;
+  float: right;
+  list-style-type: none;
+  text-align: center;
+  vertical-align: middle;
+}
+
+li {
+  vertical-align: middle;
+}
+
+.center-nav {
+}
+
+.rIcons {
+  float:right;
+}
+
 .line {
   /* height: 50px; */
   display: flex;
@@ -23,12 +52,12 @@
   margin: 5px;
   border: 2px solid lightgray;
   text-align: center;
-  font-size: 32px;
+  font-size: 22px;
+  font-weight: bold;
   text-transform: capitalize;
   vertical-align: middle;
   line-height: 50px;
 }
-
 
 .correct{
   background-color: lightgreen;
@@ -40,4 +69,24 @@
 
 .incorrect{
   background-color: rgb(243, 236, 236);
+}
+
+.key {
+  display: inline-block;
+  height: 30px;
+  width: 10px;
+  overflow: hidden;
+  background-color: lightgray;
+  margin: 5px 2px;
+  padding: 9px;
+  border: 1px solid lightgray;
+  border-radius: 10px; 
+  text-transform: capitalize;
+  font-family: Arial, Helvetica, sans-serif;
+  vertical-align: middle;
+  line-height: 30px;
+}
+
+.rev {
+  background-color: gray;
 }

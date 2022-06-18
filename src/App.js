@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
+import { BsGearFill } from 'react-icons/bs'
+import { MdOutlineLeaderboard } from 'react-icons/md'
 
 const API_URL = "https://raw.githubusercontent.com/xangregg/deepwordle/main/common.txt"
 
@@ -29,7 +31,7 @@ function App() {
         console.log("GAME OVER")
         return;
       }
-      console.log(event.key)
+      // console.log(event.key)
       if (event.key === 'Enter'){
         if (currentGuess.length === 5) {
           if(currentGuess === answer || guesses.findIndex(x => x===null) === -1){
@@ -50,7 +52,6 @@ function App() {
 
       if (event.keyCode >= 65 && event.keyCode <= 90 && currentGuess.length<5) {
         setCurrentGuess(oldGuess => oldGuess + event.key)
-        console.log(currentGuess, currentGuess.length)
         return;
       }
       return;
@@ -65,6 +66,7 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar/>
       {
         guesses.map((guess, i) => {
           const isCurrentGuess = i === guesses.findIndex( x => x==null)
@@ -73,8 +75,24 @@ function App() {
         })
         // means passes empty string if null
       }
+      <Keyboard guesses={guesses} answer={answer}/>
     </div>
   );
+}
+
+function Navbar() {
+  return <div>
+    <div className='navbar'>
+      <div className='center-nav'>
+        Wordle 
+      </div>
+      <ul>
+        <li className='rIcons'><BsGearFill/></li> 
+        <li className='rIcons'><MdOutlineLeaderboard/></li>
+      </ul>
+    </div>
+    <hr></hr>
+  </div>
 }
 
 function Line({guess, answer, isFinal}) {
@@ -98,6 +116,35 @@ function Line({guess, answer, isFinal}) {
   }
   return <div className="line">
     {tiles}
+  </div>
+}
+
+function Keyboard( {guesses, answer} ) {
+  let row1 = ['q','w','e','r','s','t','y','u','v','i','o','p'];
+  let row2 = ['a','s','d','f','g','h','j','k','l'];
+  let row3 = ['z','x','c','v','b','n','m'];
+  
+  return <div>
+    <Row key={1} keys={row1} guesses={guesses} answer={answer}/>
+    <Row key={2} keys={row2} guesses={guesses} answer={answer}/>
+    <Row key={3} keys={row3} guesses={guesses} answer={answer}/>
+    </div>
+}
+
+function Row({keys, guesses, answer}) {
+  const ret = [];
+  keys.forEach(x => {
+    let revealed = false;
+    guesses.forEach(y => {
+      if (y!=null && y.includes(x)) {
+        console.log(y);
+        revealed = true;
+      }
+    })
+    ret.push(<div className={ (revealed && !answer.includes(x)) ?"key rev":"key"}>{x}</div>)
+  })
+  return <div>
+    {ret}
   </div>
 }
 
