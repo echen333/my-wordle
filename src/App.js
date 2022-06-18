@@ -22,14 +22,21 @@ function App() {
   }, [])
 
   useEffect( () => {
-    // DIFFERENCE BETWEEN CONST AND FUNCTION
+    let fired = false;
+    // DIFFERENCE BETWEEN CONST AND FUNCTION?
     const handleType = (event) => {
-      console.log(event.key)
       if (gameOver) {
+        console.log("GAME OVER")
         return;
       }
+      // if(!fired) {
+        // fired = true;
+        // do something
+        // if(event.repeat)
+        // return;
+      console.log(event.key)
       if (event.key === 'Enter'){
-        if (currentGuess.length >= 5) {
+        if (currentGuess.length === 5) {
           if(currentGuess === answer || guesses.findIndex(x => x===null) === -1){
             setGameOver(true);
           }
@@ -46,22 +53,19 @@ function App() {
         return;
       } 
 
-      if(65<=event.which && event.which<=90 && currentGuess.length<5){
+      if (event.keyCode >= 65 && event.keyCode <= 90 && currentGuess.length<5) {
         setCurrentGuess(oldGuess => oldGuess + event.key)
         console.log(currentGuess, currentGuess.length)
         return;
-        // if(currentGuess.length < 5) {
-        //   const tmp = currentGuess + event.key;
-        //   setCurrentGuess(tmp);
-        //   console.log(currentGuess)
-        // }
       }
       return;
+      // }
     }
-    window.addEventListener('keydown', handleType)
-    // (event) => {
-      
-    // });
+    window.addEventListener('keyup', handleType)
+
+    return () => {
+      window.removeEventListener('keyup', handleType)
+    }
   }, [currentGuess, guesses, gameOver, answer]);
 
 
@@ -70,7 +74,8 @@ function App() {
       {
         guesses.map((guess, i) => {
           const isCurrentGuess = i === guesses.findIndex( x => x==null)
-          return <Line key={i} guess={isCurrentGuess?currentGuess:(guess ?? '')}  answer={answer} isFinal={!isCurrentGuess}/>
+          const isTmp = i >= guesses.findIndex( x=> x===null)
+          return <Line key={i} guess={isCurrentGuess?currentGuess:(guess ?? '')}  answer={answer} isFinal={!isTmp}/>
         })
         // means passes empty string if null
       }
@@ -90,6 +95,9 @@ function Line({guess, answer, isFinal}) {
       }
       else if(answer.includes(guess[i])){
         cl_name = "tile-almost"
+      }
+      else {
+        cl_name = "tile-incorrect"
       }
     }
     tiles.push(<div key={i} className={cl_name}>
