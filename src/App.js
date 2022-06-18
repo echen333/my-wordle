@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 
-const API_URL = "https://raw.githubusercontent.com/tabatkins/wordle-list/main/words"
+const API_URL = "https://raw.githubusercontent.com/xangregg/deepwordle/main/common.txt"
 
 function App() {
   const [answer, setAnswer] = useState('');
@@ -15,7 +15,7 @@ function App() {
       const response = await fetch(API_URL);
       const data = await response.text();
       var cells = data.split('\n').map(function (el) { return el.split(/\s+/); });
-      setAnswer(cells[Math.floor(Math.random()*5)][0]);
+      setAnswer(cells[Math.floor(Math.random()*cells.length)][0]);
     }
     go_fetch();
     
@@ -29,11 +29,6 @@ function App() {
         console.log("GAME OVER")
         return;
       }
-      // if(!fired) {
-        // fired = true;
-        // do something
-        // if(event.repeat)
-        // return;
       console.log(event.key)
       if (event.key === 'Enter'){
         if (currentGuess.length === 5) {
@@ -59,7 +54,6 @@ function App() {
         return;
       }
       return;
-      // }
     }
     window.addEventListener('keyup', handleType)
 
@@ -74,7 +68,7 @@ function App() {
       {
         guesses.map((guess, i) => {
           const isCurrentGuess = i === guesses.findIndex( x => x==null)
-          const isTmp = i >= guesses.findIndex( x=> x===null)
+          const isTmp = i >= guesses.findIndex( x=> x===null) && guesses.findIndex(x=>x===null) !== -1
           return <Line key={i} guess={isCurrentGuess?currentGuess:(guess ?? '')}  answer={answer} isFinal={!isTmp}/>
         })
         // means passes empty string if null
@@ -83,29 +77,25 @@ function App() {
   );
 }
 
-//key
-
 function Line({guess, answer, isFinal}) {
   let tiles = [];
   for(let i=0;i<5;i++){
     let cl_name="tile";
     if (isFinal) {
       if(guess[i] === answer[i]){
-        cl_name = "tile-correct"
+        cl_name = "tile correct"
       }
       else if(answer.includes(guess[i])){
-        cl_name = "tile-almost"
+        cl_name = "tile almost"
       }
       else {
-        cl_name = "tile-incorrect"
+        cl_name = "tile incorrect"
       }
     }
     tiles.push(<div key={i} className={cl_name}>
       {guess[i]}
     </div>)
-  
   }
-
   return <div className="line">
     {tiles}
   </div>

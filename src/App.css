@@ -1,61 +1,43 @@
 .App {
-  text-align: left;
+  text-align: center;
+  vertical-align: center;
   /* height: 50px */
 }
 
 .line {
   /* height: 50px; */
   display: flex;
+  vertical-align: center;
+  align-items: center;
+  align-content: center;
+  margin:auto;
+  justify-content: center;
 }
 
 .tile {
+
   display: inline-block;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: Arial, Helvetica, sans-serif;
   height: 50px;
   width: 50px;
-  margin: 10px;
-  border: 2px solid black;
+  margin: 5px;
+  border: 2px solid lightgray;
   text-align: center;
   font-size: 32px;
   text-transform: capitalize;
+  vertical-align: middle;
+  line-height: 50px;
 }
 
 
-.tile-correct{
+.correct{
   background-color: lightgreen;
-  display: inline-block;
-  font-family: 'Courier New', Courier, monospace;
-  height: 50px;
-  width: 50px;
-  margin: 10px;
-  border: 2px solid black;
-  text-align: center;
-  font-size: 32px;
-  text-transform: capitalize;
 }
 
-.tile-almost{
+.almost{
   background-color: yellow;
-  display: inline-block;
-  font-family: 'Courier New', Courier, monospace;
-  height: 50px;
-  width: 50px;
-  margin: 10px;
-  border: 2px solid black;
-  text-align: center;
-  font-size: 32px;
-  text-transform: capitalize;
 }
 
-.tile-incorrect{
+.incorrect{
   background-color: rgb(243, 236, 236);
-  display: inline-block;
-  font-family: 'Courier New', Courier, monospace;
-  height: 50px;
-  width: 50px;
-  margin: 10px;
-  border: 2px solid black;
-  text-align: center;
-  font-size: 32px;
-  text-transform: capitalize;
 }
