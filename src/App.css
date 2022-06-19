@@ -8,10 +8,14 @@
   display: inline-flex;
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   vertical-align: middle;
   font-weight: bold;
   font-size:xx-large;
+}
+
+hr {
+  border-color: rgba(211, 211, 211, 0.423);
 }
 
 ul {
@@ -30,7 +34,11 @@ li {
 }
 
 .rIcons {
-  float:right;
+  justify-content: center;
+  margin: 5px 10px;
+  position: absolute;
+  display: inline-flex;
+  right: 10px;
 }
 
 .line {
@@ -49,10 +57,10 @@ li {
   font-family: Arial, Helvetica, sans-serif;
   height: 50px;
   width: 50px;
-  margin: 5px;
+  margin: 3px;
   border: 2px solid lightgray;
   text-align: center;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: bold;
   text-transform: capitalize;
   vertical-align: middle;
@@ -60,33 +68,56 @@ li {
 }
 
 .correct{
-  background-color: lightgreen;
+  background-color: rgba(62, 170, 62, 0.723);
+  border: 2px solid rgba(62, 170, 62, 0.723);
+  color:white
 }
 
 .almost{
-  background-color: yellow;
+  background-color: rgba(212, 212, 31, 0.73);
+  border: 2px solid rgba(212, 212, 31, 0.73);
+  color:white
 }
 
 .incorrect{
-  background-color: rgb(243, 236, 236);
+  background-color: rgba(128, 128, 128, 0.9);
+  border: 2px solid rgba(128, 128, 128, 0.9);
+  color:white
+}
+
+.keyboard {
+  display: inline-flexbox;
+  position: absolute;
+  bottom: 10px;
+  margin: auto;
+  width: 100%;
 }
 
 .key {
   display: inline-block;
   height: 30px;
   width: 10px;
-  overflow: hidden;
   background-color: lightgray;
-  margin: 5px 2px;
-  padding: 9px;
+  margin: 6px 3px;
+  padding: 12px 16px;
   border: 1px solid lightgray;
-  border-radius: 10px; 
+  border-radius: 3px; 
   text-transform: capitalize;
   font-family: Arial, Helvetica, sans-serif;
   vertical-align: middle;
   line-height: 30px;
+  font-weight: bold;
 }
 
-.rev {
-  background-color: gray;
+.bad {
+  background-color: rgba(128, 128, 128, 0.9);
+  color: white;
+}
+.good {
+  background-color: rgba(212, 212, 31, 0.73);
+  color: white;
+}
+.great {
+  background-color: rgba(62, 170, 62, 0.723);
+  color: white;
 }

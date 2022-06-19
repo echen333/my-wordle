@@ -11,6 +11,7 @@ function App() {
   const [guesses, setGuesses] = useState(Array(6).fill(null));
   const [currentGuess, setCurrentGuess] = useState('');
   const [gameOver, setGameOver] = useState(false);
+  const [wordBank, setWordBank] = useState([]);
 
   useEffect( () => {
     async function go_fetch() {
@@ -18,6 +19,8 @@ function App() {
       const data = await response.text();
       var cells = data.split('\n').map(function (el) { return el.split(/\s+/); });
       setAnswer(cells[Math.floor(Math.random()*cells.length)][0]);
+      var wordArr = cells.map(x => x[0]);
+      setWordBank(wordArr);
     }
     go_fetch();
     
@@ -33,7 +36,7 @@ function App() {
       }
       // console.log(event.key)
       if (event.key === 'Enter'){
-        if (currentGuess.length === 5) {
+        if (currentGuess.length === 5 && wordBank.includes(currentGuess)) {
           if(currentGuess === answer || guesses.findIndex(x => x===null) === -1){
             setGameOver(true);
           }
@@ -61,7 +64,7 @@ function App() {
     return () => {
       window.removeEventListener('keyup', handleType)
     }
-  }, [currentGuess, guesses, gameOver, answer]);
+  }, [currentGuess, guesses, gameOver, answer, wordBank]);
 
 
   return (
@@ -86,9 +89,9 @@ function Navbar() {
       <div className='center-nav'>
         Wordle 
       </div>
-      <ul>
-        <li className='rIcons'><BsGearFill/></li> 
-        <li className='rIcons'><MdOutlineLeaderboard/></li>
+      <ul className='rIcons'>
+        <li><MdOutlineLeaderboard size={20}/></li>
+        <li><BsGearFill size={20}/></li> 
       </ul>
     </div>
     <hr></hr>
@@ -120,11 +123,11 @@ function Line({guess, answer, isFinal}) {
 }
 
 function Keyboard( {guesses, answer} ) {
-  let row1 = ['q','w','e','r','s','t','y','u','v','i','o','p'];
+  let row1 = ['q','w','e','r','t','y','u','i','o','p'];
   let row2 = ['a','s','d','f','g','h','j','k','l'];
-  let row3 = ['z','x','c','v','b','n','m'];
+  let row3 = ['>','z','x','c','v','b','n','m', '<'];
   
-  return <div>
+  return <div className='keyboard'>
     <Row key={1} keys={row1} guesses={guesses} answer={answer}/>
     <Row key={2} keys={row2} guesses={guesses} answer={answer}/>
     <Row key={3} keys={row3} guesses={guesses} answer={answer}/>
@@ -135,13 +138,19 @@ function Row({keys, guesses, answer}) {
   const ret = [];
   keys.forEach(x => {
     let revealed = false;
+    let green = false;
     guesses.forEach(y => {
       if (y!=null && y.includes(x)) {
         console.log(y);
         revealed = true;
+        for (let i=0;i<5;i++) {
+          if(answer[i] === y[i] && answer[i] === x) {
+            green = true;
+          }
+        }
       }
     })
-    ret.push(<div className={ (revealed && !answer.includes(x)) ?"key rev":"key"}>{x}</div>)
+    ret.push(<div className={ (revealed) ? ((!answer.includes(x))?"key bad": (green?"key great":"key good")):"key"}>{x}</div>)
   })
   return <div>
     {ret}
